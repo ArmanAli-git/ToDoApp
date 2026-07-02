@@ -1,0 +1,342 @@
+/* ====== Global properties ====== */
+@font-face {
+  font-family: "offside";
+  src: url(./fonts/Offside-Regular.ttf);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "offside";
+  box-sizing: border-box;
+}
+
+html {
+  font-size: clamp(16px, 1vw + 8px, 20px);
+}
+
+:root {
+  /* ====== accent color ====== */
+  --accent-primary: 0, 66%, 47%;
+  --accent-secondary: 244, 93%, 32%;
+
+  /* ======= light mode ====== */
+  --light-bg-high: 0, 0%, 80%;
+  --light-bg-mid: 0, 0%, 75%;
+  --light-bg-low: 0, 0%, 70%;
+
+  --light-text-main: 0, 0%, 5%;
+  --light-text-muted: 0, 0%, 25%;
+
+  /* ====== dark mode ====== */
+  --dark-bg-high: 0, 0%, 30%;
+  --dark-bg-mid: 0, 0%, 20%;
+  --dark-bg-low: 0, 0%, 10%;
+
+  --dark-text-main: 0, 0%, 95%;
+  --dark-text-muted: 0, 0%, 85%;
+
+  --danger: 0, 80%, 60%;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ====== Header Section ====== */
+header {
+  display: flex;
+  height: 6rem;
+  justify-content: space-between;
+  align-items: center;
+  background-color: hsla(var(--light-bg-high));
+  padding-left: 2rem;
+}
+
+#title {
+  font-size: 2.5rem;
+  color: hsla(var(--accent-primary));
+}
+
+/* ====== Main Body ====== */
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: hsla(var(--light-bg-high));
+  padding: 3rem;
+}
+
+/* ====== ToDo List ====== */
+.work-todo-container {
+  display: grid;
+  width: 100%;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  margin-bottom: 1rem;
+}
+
+.work-todo {
+  display: flex;
+  align-items: center;
+  background-color: hsla(var(--light-bg-mid));
+  height: 3rem;
+  border-radius: 2rem;
+  corner-shape: squircle;
+  transition: filter 0.15s ease-out;
+  border-left: 3px solid hsla(var(--accent-primary));
+}
+
+.work-todo:hover {
+  filter: brightness(0.95);
+}
+
+.todo-checkbox {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.todo-checkbox-label {
+  display: flex;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid hsla(var(--accent-primary));
+  background-color: hsla(var(--light-bg-high));
+  margin: 0 0.7rem;
+  flex-shrink: 0;
+  border-radius: 1rem;
+}
+
+.todo-checkbox-label.check {
+  background-color: hsla(var(--accent-primary));
+}
+
+.todo-checkbox-label svg {
+  opacity: 0;
+}
+
+.todo-checkbox-label.check svg {
+  opacity: 1;
+  fill: hsla(var(--light-bg-high));
+}
+
+.todo-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-grow: 1;
+  color: hsla(var(--light-text-main));
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
+}
+
+.todo-checkbox-label.check ~ .todo-info {
+  text-decoration: line-through;
+}
+
+/* ====== ToDo List Options ====== */
+.todo-edit-button,
+.todo-delete-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  height: 100%;
+  width: 3rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease-out;
+}
+
+.todo-delete-button {
+  border-radius: 0 2rem 2rem 0;
+  corner-shape: squircle;
+  padding-right: 0.1rem;
+}
+
+.todo-edit-button:hover {
+  background-color: hsla(var(--light-bg-low), 0.7);
+}
+
+.todo-delete-button:hover {
+  background-color: hsla(var(--danger), 0.7);
+}
+
+.todo-edit-button svg,
+.todo-delete-button svg {
+  fill: hsla(var(--light-text-main), 0.6);
+  height: 1rem;
+  width: 1rem;
+}
+
+/* ====== Add ToDo Button ====== */
+.add-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  border-radius: 2rem;
+  corner-shape: squircle;
+  cursor: pointer;
+  background: hsla(var(--light-bg-mid), 0.8);
+  border: 1px dashed hsla(var(--accent-primary), 0.8);
+  position: relative;
+  transition: all 0.15s ease-out;
+}
+
+.add-button:hover {
+  background-color: hsla(var(--accent-primary), 0.1);
+}
+
+.add-button svg {
+  fill: hsla(var(--accent-primary), 0.9);
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+/* ====== Add ToDo Window ====== */
+.add-work-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: hsla(var(--light-text-main), 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.15s ease;
+}
+
+.add-work-background.add,
+.add-work-background.view {
+  opacity: 1;
+  backdrop-filter: blur(5px);
+  z-index: 9;
+}
+
+.add-work-container {
+  display: flex;
+  flex-direction: column;
+  background-color: hsla(var(--light-bg-mid));
+  padding: 1.25rem;
+  border-radius: 2.5rem;
+  corner-shape: squircle;
+  gap: 1rem;
+  transform: translateY(3rem);
+  transition: all 0.3s ease;
+}
+
+.add-work-container.slide {
+  transform: translateY(-3rem);
+}
+
+.work-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 20rem;
+}
+
+#work-info-title,
+#work-info-description {
+  background-color: hsla(var(--light-bg-high));
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: 1.25rem;
+  corner-shape: squircle;
+  padding: 0.5rem;
+}
+#work-info-description {
+  resize: none;
+}
+
+#work-info-title:focus,
+#work-info-description:focus {
+  border: 1px solid hsla(var(--accent-primary));
+}
+
+/* ====== Add ToDo Window Button ====== */
+.work-button-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+.work-edit-button,
+.work-save-button,
+.work-delete-button,
+.work-add-button,
+.work-cancel-button {
+  width: 7rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 1.25rem;
+  corner-shape: squircle;
+  transition: all 0.15s ease-out;
+  cursor: pointer;
+  flex-grow: 1;
+}
+
+.work-edit-button svg,
+.work-save-button svg,
+.work-delete-button svg,
+.work-add-button svg {
+  width: 1rem;
+  height: 1rem;
+  fill: hsla(var(--light-text-main), 0.6);
+}
+
+.work-edit-button:hover,
+.work-save-button:hover,
+.work-delete-button:hover,
+.work-add-button:hover,
+.work-cancel-button:hover {
+  filter: brightness(0.9);
+}
+
+.work-add-button,
+.work-delete-button {
+  background-color: hsla(var(--accent-primary), 0.8);
+}
+
+.work-edit-button,
+.work-save-button,
+.work-cancel-button {
+  background-color: hsla(var(--light-bg-low));
+}
+
+.work-add-button,
+.work-cancel-button {
+  display: block;
+}
+
+.work-save-button,
+.work-edit-button,
+.work-delete-button {
+  display: none;
+  width: 2.5rem;
+}
+
+main:has(.add-work-background.view) .work-add-button {
+  display: none;
+}
+
+main:has(.add-work-background.view) .work-edit-button,
+main:has(.add-work-background.view) .work-delete-button {
+  display: block;
+}
+
+/* ====== Media Queries ====== */
